@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="NobaCars.Core/NobaCars.Core.csproj" />
+  <Project Path="NobaCars.infra/NobaCars.Infra.csproj" />
+  <Project Path="NobaCars.Tests/NobaCars.Tests.csproj" />
+  <Project Path="NobaCars/NobaCars.csproj" />
+</Solution>
