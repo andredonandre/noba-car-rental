@@ -7,4 +7,15 @@
     <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="BlazorBlueprint.Components" Version="4.1.0" />
+    <PackageReference Include="BlazorBlueprint.Icons.Lucide" Version="2.0.2" />
+    <PackageReference Include="BlazorBlueprint.Primitives" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NobaCars.Core\NobaCars.Core.csproj" />
+    <ProjectReference Include="..\NobaCars.infra\NobaCars.Infra.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,19 +1,136 @@
 ﻿@page "/counter"
 @rendermode InteractiveServer
+@using NobaCars.Core.Interfaces
+@using NobaCars.Infra.Entities
+@inject IInventoryService InventoryService
+@inject IBookingService BookingService
+@using BlazorBlueprint.Primitives.Dialog
 
-<PageTitle>Counter</PageTitle>
+<PageTitle>Inventory Management</PageTitle>
 
-<h1>Counter</h1>
+<h1>Inventory</h1>
 
-<p role="status">Current count: @currentCount</p>
+<hr />
+<BbTabs DefaultValue="tab1">
+    <BbTabsList class="bg-muted p-1 rounded-md">
+        <BbTabsTrigger Value="tab1">Cars</BbTabsTrigger>
+        <BbTabsTrigger Value="tab2">Car Categories</BbTabsTrigger>
+    </BbTabsList>
+    <BbTabsContent Value="tab1">
+        <div class="row">
+            <div class = "col">
+                Cars
+            </div>
+            <div class="col">
+                <BbAlertDialog>
+                    <BbAlertDialogTrigger>
+                        <BbButton Variant="ButtonVariant.Outline">Show Dialog</BbButton>
+                    </BbAlertDialogTrigger>
+                    <BbAlertDialogContent>
+                        <BbAlertDialogHeader>
+                            <BbAlertDialogTitle>Are you absolutely sure?</BbAlertDialogTitle>
+                            <BbAlertDialogDescription>
+                                This action cannot be undone. This will permanently delete your
+                                account and remove your data from our servers.
+                            </BbAlertDialogDescription>
+                        </BbAlertDialogHeader>
+                        <BbAlertDialogFooter>
+                            <BbAlertDialogCancel>
+                                <BbButton Variant="ButtonVariant.Outline">Cancel</BbButton>
+                            </BbAlertDialogCancel>
+                            <BbAlertDialogAction>
+                                <BbButton>Continue</BbButton>
+                            </BbAlertDialogAction>
+                        </BbAlertDialogFooter>
+                    </BbAlertDialogContent>
+                </BbAlertDialog>
+            </div>
+        </div>
+        @if (cars == null)
+        {
+            <p><em>Loading cars...</em></p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Brand</th>
+                        <th aria-label="Temperature in Celsius">Model</th>
+                        <th aria-label="Temperature in Fahrenheit">Year</th>
+                        <th>Mileage(KM)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var car in cars)
+                    {
+                        <tr>
+                            <td>@car.Brand</td>
+                            <td>@car.Model</td>
+                            <td>@car.Year</td>
+                            <td>@car.MileAge</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+    </BbTabsContent>
+    <BbTabsContent Value="tab2">
+        <h3>Car Categories</h3>
+        @if (categories == null)
+        {
+            <p><em>Loading cars...</em></p>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th aria-label="Base km Rate">Base km Rate</th>
+                        <th aria-label="Day Rate">Day Rate</th>
+                        <th aria-label="Day Rate Multiplier">Day Rate Multiplier</th>
+                        <th aria-label="Distance Rate Multiplier">Distance Rate Multiplier</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var category in categories)
+                    {
+                        <tr>
+                            <td>@category.Name</td>
+                            <td>@category.BaseKmPrice</td>
+                            <td>@category.BaseDayRentalPrice</td>
+                            <td>@category.DayRateMultipler</td>
+                            <td>@category.DistanceRateMultipler</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+    </BbTabsContent>
+</BbTabs>
+
+<button class="btn btn-primary" @onclick="CreateCar">CreateCar</button>
 
 @code {
-    private int currentCount = 0;
+    private List<CarCategory> categories = new();
+    private List<Car> cars = new();
+    private List<Booking> bookings = new();
 
-    private void IncrementCount()
+    protected override async Task OnInitializedAsync()
     {
-        currentCount++;
+        await Task.Delay(400);
+        categories = InventoryService.GetCarCategories().ToList();
+        cars = InventoryService.GetCars().ToList();
+        bookings = BookingService.GetBookings().ToList();
+    }
+
+    private void CreateCar()    
+    {
+        Car car = new Car() { };
+        InventoryService.AddACar(car);
     }
 }
+

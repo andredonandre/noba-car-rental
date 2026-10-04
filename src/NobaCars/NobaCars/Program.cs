@@ -1,10 +1,26 @@
+using BlazorBlueprint.Components;
+using BlazorBlueprint.Primitives.Extensions;
 using NobaCars.Components;
+using NobaCars.Core.Interfaces;
+using NobaCars.Core.Services;
+using NobaCars.Infra;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddSingleton<Database>();
+builder.Services.AddSingleton<IBookingService, BookingService>();
+builder.Services.AddSingleton<IInventoryService, InventoryService>();
+
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
+
+// Add BlazorBlueprint services (primitives, toast, dialog)
+builder.Services.AddBlazorBlueprintComponents();
+builder.Services.AddBlazorBlueprintPrimitives();
 
 var app = builder.Build();
 

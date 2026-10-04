@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using BlazorBlueprint.Primitives
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -9,6 +10,14 @@
     <link rel="stylesheet" href="@Assets["lib/bootstrap/dist/css/bootstrap.min.css"]" />
     <link rel="stylesheet" href="@Assets["app.css"]" />
     <link rel="stylesheet" href="@Assets["NobaCars.styles.css"]" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- Theme variables (customize colors, radius, etc.) -->
+    <link href="@Assets["css/theme.css"]" rel="stylesheet" />
+
+    <!-- Pre-built BlazorBlueprint styles (includes all component styles) -->
+    <link href="_content/BlazorBlueprint.Components/blazorblueprint.css" rel="stylesheet" />
     <ImportMap />
     <link rel="icon" type="image/png" href="favicon.png" />
     <HeadOutlet />
@@ -19,5 +28,4 @@
     <ReconnectModal />
     <script src="@Assets["_framework/blazor.web.js"]"></script>
 </body>
-
 </html>

@@ -1,0 +1,147 @@
+{
+  "carCategory": [
+    {
+      "id": 0,
+      "name": "SmallCar",
+      "rateMultipler": 1.0,
+      "baseKmPrice": 34,
+      "baseDayRentalPrice": 33
+    },
+    {
+      "id": 1,
+      "name": "Combi",
+      "rateMultipler": 1.3,
+      "baseKmPrice": 34,
+      "baseDayRentalPrice": 33
+    },
+    {
+      "id": 2,
+      "name": "Truck",
+      "rateMultipler": 1.5,
+      "baseKmPrice": 34,
+      "baseDayRentalPrice": 33
+    },
+    {
+      "id": 3,
+      "name": "SmallCar",
+      "rateMultipler": 1.0,
+      "baseKmPrice": 34,
+      "baseDayRentalPrice": 33
+    },
+    {
+      "id": 4,
+      "name": "Combi",
+      "rateMultipler": 1.3,
+      "baseKmPrice": 34,
+      "baseDayRentalPrice": 33
+    },
+    {
+      "id": 5,
+      "name": "Truck",
+      "rateMultipler": 1.5,
+      "baseKmPrice": 34,
+      "baseDayRentalPrice": 33
+    }
+  ],
+  "car": [
+    {
+      "id": 1,
+      "name": null,
+      "carCategory": null,
+      "brand": "Volvo",
+      "mileAge": 0,
+      "model": "V90",
+      "registrationNumber": null,
+      "vin": null,
+      "year": 2029
+    },
+    {
+      "id": 2,
+      "name": null,
+      "carCategory": null,
+      "brand": "Toyota",
+      "mileAge": 0,
+      "model": "Emina",
+      "registrationNumber": null,
+      "vin": null,
+      "year": 2011
+    },
+    {
+      "id": 3,
+      "name": null,
+      "carCategory": null,
+      "brand": "Volvo",
+      "mileAge": 0,
+      "model": "V90",
+      "registrationNumber": null,
+      "vin": null,
+      "year": 2029
+    },
+    {
+      "id": 4,
+      "name": null,
+      "carCategory": null,
+      "brand": "Volvo",
+      "mileAge": 0,
+      "model": "V90",
+      "registrationNumber": null,
+      "vin": null,
+      "year": 2029
+    },
+    {
+      "id": 5,
+      "name": null,
+      "carCategory": null,
+      "brand": "Volvo",
+      "mileAge": 0,
+      "model": "V90",
+      "registrationNumber": null,
+      "vin": null,
+      "year": 2029
+    },
+    {
+      "id": 6,
+      "name": null,
+      "carCategory": null,
+      "brand": null,
+      "mileAge": 0,
+      "model": null,
+      "registrationNumber": null,
+      "vin": null,
+      "year": 0
+    },
+    {
+      "id": 7,
+      "name": null,
+      "carCategory": null,
+      "brand": null,
+      "mileAge": 0,
+      "model": null,
+      "registrationNumber": null,
+      "vin": null,
+      "year": 0
+    },
+    {
+      "id": 8,
+      "name": null,
+      "carCategory": null,
+      "brand": null,
+      "mileAge": 0,
+      "model": null,
+      "registrationNumber": null,
+      "vin": null,
+      "year": 0
+    },
+    {
+      "id": 9,
+      "name": null,
+      "carCategory": null,
+      "brand": null,
+      "mileAge": 0,
+      "model": null,
+      "registrationNumber": null,
+      "vin": null,
+      "year": 0
+    }
+  ]
+}
