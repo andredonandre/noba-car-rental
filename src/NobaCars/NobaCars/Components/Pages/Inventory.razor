@@ -1,0 +1,180 @@
+﻿@page "/inventory"
+@rendermode InteractiveServer
+@using NobaCars.Core.Interfaces
+@using NobaCars.Infra.Entities
+@inject IInventoryService InventoryService
+@inject IBookingService BookingService
+
+<PageTitle>Inventory Management</PageTitle>
+<section>
+    <header class="">
+        <div class="py-4">
+            <div class="border-bottom">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-4 my-3">
+                    <div class="">
+                        <h1 class="ls-tight">
+                            Inventory
+                        </h1>
+                    </div>
+                </div>
+                <ul class="nav nav-underline gap-6" id="inventoryTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active pe-auto text-md" id="cars-tab" data-bs-toggle="tab" data-bs-target="#carsTab" role="tab" aria-controls="cars" aria-selected="true">
+                            Cars
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link pe-auto text-md" id="categories-tab" data-bs-toggle="tab" data-bs-target="#carCategoriesTab" role="tab" aria-controls="categories" aria-selected="false">
+                            Car Categories
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div class="tab-content" id="inventoryTabContent">
+        <div class="tab-pane fade show active" id="carsTab" role="tabpanel" aria-labelledby="cars-tab">
+
+            @if (cars == null)
+            {
+                <p><em>Loading cars...</em></p>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Reg Number</th>
+                            <th>Brand</th>
+                            <th aria-label="Car Model">Model</th>
+                            <th aria-label="Car Category" colspan="2">Category</th>
+                            <th aria-label="Year of Car">Year</th>
+                            <th>Mileage(km)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var car in cars)
+                        {
+                            <tr>
+                                <td>@car.RegistrationNumber</td>
+                                <td>@car.Brand</td>
+                                <td>@car.Model</td>
+                                <td colspan="2">@car.CarCategory?.Name</td>
+                                <td>@car.Year</td>
+                                <td>@car.MileAge km</td>
+                                <td></td>
+                            </tr>
+                        }
+                        <tr>
+                            <td><InputText placeholder="Reg Number" class="form-control" @bind-Value="CarModel!.RegistrationNumber" /></td>
+                            <td><InputText placeholder="Brand" class="form-control" @bind-Value="CarModel!.Brand" /></td>
+                            <td><InputText placeholder="Model" class="form-control" @bind-Value="CarModel!.Model" /></td>
+                            <td colspan="2">
+                                <InputSelect class="form-select" @bind-Value="CarModel.CarCategory.Name" @onchange="ChangeCarCategory">
+                                    @foreach (var category in carCategories)
+                                    {
+                                        <option>@category.Name</option>
+                                    }
+                                </InputSelect>
+                            </td>
+                            <td><InputNumber placeholder="Year" class="form-control" @bind-Value="CarModel!.Year" /></td>
+                            <td><InputNumber placeholder="Mileage" class="form-control" @bind-Value="CarModel!.MileAge" /></td>
+                            <td><button @onclick="AddCar" class="btn btn-primary">Add</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+
+        </div>
+        <div class="tab-pane fade" id="carCategoriesTab" role="tabpanel" aria-labelledby="categories-tab">
+            @if (carCategories == null)
+            {
+                <p><em>Loading car Categories...</em></p>
+            }
+            else
+            {
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th aria-label="Day Rate">Base DayRate(SEK)</th>
+                            <th aria-label="Day Rate Multiplier">Day Rate Multiplier</th>
+                            <th aria-label="Base km Rate">Base km Rate(SEK)</th>
+                            <th aria-label="Distance Rate Multiplier">Distance Rate Multiplier</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>                       
+                        @foreach (var category in carCategories)
+                        {
+                            <tr>
+                                <td>@category.Name</td>
+                                <td>@category.BaseDayRentalPrice SEK</td>
+                                <td>@category.DayRateMultipler</td>
+                                <td>@category.BaseKmPrice SEK</td>
+                                <td>@category.DistanceRateMultipler</td>
+                                <td></td>
+                            </tr>
+                        }
+                        <tr>
+                            <td><InputText placeholder="Name" class="form-control" @bind-Value="CarCategoryModel!.Name" /></td>
+                            <td><InputNumber placeholder="Base DayRate" class="form-control" @bind-Value="CarCategoryModel!.BaseDayRentalPrice" /></td>
+                            <td><InputNumber placeholder="DayRate Multiplier" class="form-control" @bind-Value="CarCategoryModel!.DayRateMultipler" /></td>
+                            <td><InputNumber placeholder="Base Km Rate" class="form-control" @bind-Value="CarCategoryModel!.BaseKmPrice" /></td>
+                            <td><InputNumber placeholder="Km Rate Multiplier" class="form-control" @bind-Value="CarCategoryModel!.DistanceRateMultipler" /></td>
+                            <td><button @onclick="AddCarCategory" class="btn btn-primary">Add</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</section>
+
+@code {
+    private List<CarCategory> carCategories = new();
+    private List<Car> cars = new();
+
+    [SupplyParameterFromForm]
+    private Car? CarModel { get; set; } = new();
+
+    [SupplyParameterFromForm]
+    private CarCategory? CarCategoryModel { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(400);
+        LoadData();
+    }
+
+    private void LoadData()    
+    {
+        carCategories = InventoryService.GetCarCategories().ToList();
+        cars = InventoryService.GetCars().ToList();
+        CarModel?.CarCategory = carCategories.First();
+    }
+
+    private async Task AddCar()
+    {
+        await InventoryService.AddACar(CarModel);
+        CarModel = new();
+        LoadData();
+    }
+
+    private async Task AddCarCategory()
+    {
+        await InventoryService.AddCarCategory(CarCategoryModel);
+        CarCategoryModel = new();
+        LoadData();
+    }
+
+    private void ChangeCarCategory(ChangeEventArgs args)
+    {
+        var newValue = args.Value?.ToString();
+        if (String.IsNullOrEmpty(newValue)) return;
+        var newCategory = carCategories.Where(c => c.Name == newValue).First();
+        CarModel?.CarCategory = newCategory;
+    }
+}
+

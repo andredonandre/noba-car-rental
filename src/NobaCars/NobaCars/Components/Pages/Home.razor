@@ -8,154 +8,177 @@
 @inject IBookingService BookingService
 
 <PageTitle>Home</PageTitle>
-<header class="">
-    <div class="container-xl">
-        <div class="py-4 border-bottom">
-            <div class="d-flex align-items-center justify-content-between flex-wrap gap-4 ">
-                <div class="">
-                    <h1 class="ls-tight h3 ">
-                        Rental Bookings
-                    </h1>
+<section>
+    <header class="">
+        <div>
+            <div class="py-4 my-3 border-bottom">
+                <div class="d-flex align-items-center justify-content-between flex-wrap gap-4 ">
+                    <div class="">
+                        <h1 class="fw-semibold ls-tight">
+                            Rental Bookings
+                        </h1>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>   
-</header>
-<div>
-    <div class="table-responsive">
-        <table class="table table-wrap ">
-            <thead class="">
-                <tr>
-                    <th colspan="2">Name</th>
-                    <th>SSN</th>
-                    <th>Car</th>
-                    <th>From</th>
-                    <th>To</th>
-                    <th>Status</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-            <tbody>               
-                    @foreach (var booking in bookings)                    
+    </header>
+    <div>
+        <div class="table-responsive">
+            <table class="table table-nowrap ">
+                <thead class="">
+                    <tr>
+                        <th>Customer</th>
+                        <th>Booking Number</th>
+                        <th>Car</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Status</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (bookings.Count == 0)
+                        {
+                            <tr>
+                                <td colspan="6" class="text-center py-7">No Bookings yet!</td>
+                            </tr>
+                     }
+                    @foreach (var booking in bookings)
                     {
-                   <tr>
-                    <td colspan="2">
-                            <a href="" class="fw-semibold text-heading text-primary-hover">@booking.Customer?.FirstName @booking.Customer?.LastName</a>
-                    </td>
-                    <td>
-                            @booking.Customer?.SocialSecurityNumber
-                    </td>
-                    <td>
-                            @booking.Car.Name
-                    </td>
-                    <td>
-                           @booking.StartDate.ToShortDateString()
-                     </td>
-                     <td>
-                          @booking.EndDate.ToShortDateString()
-                    </td>
-                    <td>
-                            @switch (booking.Status)
-                            {
-                                case RentalStatus.Booked:
-                                    <span class="badge text-warning-emphasis bg-warning-subtle border border-warning-subtle rounded-pill">
-                                        @booking.Status
-                                    </span>
-                                    break;
-                                case RentalStatus.Ongoing:
-                                    <span class="badge text-success-emphasis bg-success-subtle border border-success-subtle rounded-pill">
-                                        @booking.Status
-                                    </span>
-                                    break;
-                                case RentalStatus.Complete:
-                                    <span class="badge text-light-emphasis bg-light-subtle border border-dark-subtle rounded-pill">
-                                        @booking.Status
-                                    </span>
-                                    break;
-                            }                           
-                    </td>                   
-                    <td class="text-end">
-                            @if (booking.Status == RentalStatus.Booked)
-                            {                               
-                                 <div class="dropdown">
-                                    <button class="btn btn-sm btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Pick-up
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <form @onsubmit="() => RegisterPickup(booking.Id, booking.StartDate)">
-                                            <div class="dropdown-item d-flex align-items-center">
-                                                <div class="text-lg">
-                                                    <input class="form-control" @bind-value="@booking.StartDate" type="date" id="pickupTime" name="pickupTime" aria-label="...">
+                        <tr>
+                            <td>
+                                <a href="" class=" text-heading text-primary-hover"><span class="fw-semibold">@booking.Customer?.FirstName @booking.Customer?.LastName</span> - SSN:@booking?.Customer?.SocialSecurityNumber</a>
+                            </td>
+                            <td>
+                                #@booking.BookingNumber
+                            </td>
+                            <td>
+                                @booking.Car.Name
+                            </td>
+                            <td>
+                                @if (booking?.Rental?.StartDate != null)
+                                {
+                                    @booking?.Rental?.StartDate?.ToShortDateString()
+                                }
+                                else
+                                {
+                                    @booking?.StartDate.ToShortDateString()
+                                }
+                            </td>
+                            <td>
+                                @if (booking?.Rental?.EndDate != null)
+                                {
+                                    @booking?.Rental?.EndDate?.ToShortDateString()
+                                }
+                                else
+                                {
+                                    @booking?.EndDate.ToShortDateString()
+                                }
+                            </td>
+                            <td>
+                                @switch (booking?.Status)
+                                {
+                                    case RentalStatus.Booked:
+                                        <span class="badge text-warning-emphasis bg-warning-subtle border border-warning-subtle rounded-pill">
+                                            @booking.Status
+                                        </span>
+                                        break;
+                                    case RentalStatus.Ongoing:
+                                        <span class="badge text-success-emphasis bg-success-subtle border border-success-subtle rounded-pill">
+                                            @booking.Status
+                                        </span>
+                                        break;
+                                    case RentalStatus.Complete:
+                                        <span class="badge text-light-emphasis bg-light-subtle border border-dark-subtle rounded-pill">
+                                            @booking.Status
+                                        </span>
+                                        break;
+                                }
+                            </td>
+                            <td class="text-end">
+                                @if (booking?.Status == RentalStatus.Booked)
+                                {
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-success dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Pick-up
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <form @onsubmit="() => RegisterPickup(booking.Id, booking.StartDate)">
+                                                <div class="dropdown-item d-flex align-items-center">
+                                                    <div class="text-lg">
+                                                        <input class="form-control" @bind-value="@booking.StartDate" type="date" id="pickupTime" name="pickupTime" aria-label="...">
+                                                    </div>
                                                 </div>
-                                            </div>          
-                                            <div class="dropdown-item">
-                                                <button class="btn btn-sm btn-success w-100">Register Pickup</button>
-                                            </div>
-                                        </form>
+                                                <div class="dropdown-item">
+                                                    <button class="btn btn-sm btn-success w-100">Register Pickup</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
-                            }
-                            else if (booking.Status == RentalStatus.Ongoing)
-                            {
-                                <div class="dropdown">
-                                    <button class="btn btn-sm btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Drop-off
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <form @onsubmit="() => RegisterDropoff(booking.Id, booking.EndDate, booking.Car.MileAge)">
-                                            <div class="dropdown-item d-flex align-items-center">
-                                                <div class="text-lg">
-                                                    <input class="form-control" @bind-value="@booking.EndDate" type="date" id="dropOffTime" name="dropOffTime" aria-label="...">
+                                }
+                                else if (booking?.Status == RentalStatus.Ongoing)
+                                {
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            Drop-off
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <form @onsubmit="() => RegisterDropoff(booking.Id, booking.EndDate, booking.Car.MileAge)">
+                                                <div class="dropdown-item d-flex align-items-center">
+                                                    <div class="text-lg">
+                                                        <input class="form-control" @bind-value="@booking.EndDate" type="date" id="dropOffTime" name="dropOffTime" aria-label="...">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="dropdown-item d-flex align-items-center">
-                                                <div class="text-lg">
-                                                    <input class="form-control" @bind-value="@booking.Car.MileAge" type="number" id="endMileage" name="endMileage" aria-label="...">
+                                                <div class="dropdown-item d-flex align-items-center">
+                                                    <div class="text-lg">
+                                                        <input class="form-control" @bind-value="@booking.Car.MileAge" type="number" id="endMileage" name="endMileage" aria-label="...">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="dropdown-item">
-                                                <button class="btn btn-sm btn-warning w-100">Register Drop off</button>
-                                            </div>
-                                        </form>
+                                                <div class="dropdown-item">
+                                                    <button class="btn btn-sm btn-warning w-100">Register Drop off</button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
-                            }
-                            else if (booking.Status == RentalStatus.Complete)
-                            {
-                                <span>@booking?.Rental?.Price SEK</span>
-                            }
+                                }
+                                else if (booking?.Status == RentalStatus.Complete)
+                                {
+                                    <span>@booking?.Rental?.Price SEK</span>
+                                }
 
-                      </td>
-                </tr>
-                    }               
-                <tr>
-                    <td><InputText placeholder="First Name" class="form-control" @bind-Value="bookingModel!.Customer.FirstName" /></td>
-                    <td><InputText placeholder="Last Name" class="form-control" @bind-Value="bookingModel!.Customer.LastName" /></td>
-                    <td><InputNumber placeholder="Social Security" class="form-control" @bind-Value="bookingModel!.Customer.SocialSecurityNumber"/></td>                   
-                    <td>
-                        <InputSelect class="form-select" @bind-Value="selectedCar" @onchange="() => ChangeCar(selectedCar)">
-                            @foreach (var car in cars)
-                            {
-                                <option value="@car.Id">@car.Name</option>
-                            }
-                        </InputSelect>
-                    </td>
-                    <td><InputDate placeholder="Pick-up Time" class="form-control" @bind-Value="bookingModel!.PickUp" /></td>
-                    <td><InputDate placeholder="Drop-Off Time" class="form-control" @bind-Value="bookingModel!.DropOff" /></td>
-                    <td></td>
-                    <td><button @onclick="AddBooking" class="btn btn-primary">Add</button></td>
-                </tr>
-            </tbody>
-        </table>
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td><InputText placeholder="First Name" class="form-control" @bind-Value="bookingModel!.Customer.FirstName" /></td>
+                        <td><InputText placeholder="Last Name" class="form-control" @bind-Value="bookingModel!.Customer.LastName" /></td>
+                        <td><InputNumber typeof="number" placeholder="Social Security Number" class="form-control" @bind-Value="bookingModel!.Customer.SocialSecurityNumber" /></td>
+                        <td>
+                            <InputSelect class="form-select" @bind-Value="@selectedCar" @onclick="ChangeCar">
+                                @foreach (var car in cars)
+                                {
+                                    <option value="@car.Id">@car.Name</option>
+                                }
+                            </InputSelect>
+                        </td>
+                        <td><InputDate placeholder="Pick-up Time" class="form-control" @bind-Value="bookingModel!.PickUp" /></td>
+                        <td><InputDate placeholder="Drop-Off Time" class="form-control" @bind-Value="bookingModel!.DropOff" /></td>
+                        <td><button @onclick="AddBooking" class="btn btn-primary">Add</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+</section>
 
 @code{
 
     private List<Car> cars = new();
-    private List<Booking> bookings = new();
-    private CreateBookingModel bookingModel = new();
+    private List<Booking> bookings = new();    
     private int selectedCar = new();
+
+    [SupplyParameterFromForm]
+    private CreateBookingModel? bookingModel { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
     {
@@ -178,12 +201,12 @@
         LoadData();
     } 
 
-    private void ChangeCar(int carId)
-    {
-        if (carId == null) return;
-        var newCar = cars.Where(c => c.Id == carId).First();
+    private void ChangeCar()
+    {  
+        var newCar = cars.Where(c => c.Id == selectedCar).First();
         bookingModel?.Car = newCar;
     }
+
 
     private async Task RegisterPickup(int bookingId, DateTime? PickUpTime)
     {

@@ -87,49 +87,98 @@
       "registrationNumber": "GHI789",
       "vin": "YS2P4X20005000003",
       "year": 2021
+    },
+    {
+      "id": 3,
+      "name": "Tesla Model Y 2026 - BCG345",
+      "carCategory": {
+        "id": 0,
+        "name": "SUV",
+        "dayRateMultipler": 1.0,
+        "distanceRateMultipler": 0.0,
+        "baseKmPrice": 0,
+        "baseDayRentalPrice": 300
+      },
+      "brand": "Tesla",
+      "mileAge": 0,
+      "model": "Model Y",
+      "registrationNumber": "BCG345",
+      "vin": null,
+      "year": 2026
+    },
+    {
+      "id": 4,
+      "name": "BYD Seal 2025 - LKO567",
+      "carCategory": {
+        "id": 0,
+        "name": "SmallCar",
+        "dayRateMultipler": 1.0,
+        "distanceRateMultipler": 0.0,
+        "baseKmPrice": 0,
+        "baseDayRentalPrice": 300
+      },
+      "brand": "BYD",
+      "mileAge": 3000,
+      "model": "Seal",
+      "registrationNumber": "LKO567",
+      "vin": null,
+      "year": 2025
+    },
+    {
+      "id": 5,
+      "name": "Skoda Octavia 2026 - ZVR654",
+      "carCategory": {
+        "id": 0,
+        "name": "Combi",
+        "dayRateMultipler": 1.0,
+        "distanceRateMultipler": 0.0,
+        "baseKmPrice": 0,
+        "baseDayRentalPrice": 300
+      },
+      "brand": "Skoda",
+      "mileAge": 500,
+      "model": "Octavia",
+      "registrationNumber": "ZVR654",
+      "vin": null,
+      "year": 2026
+    },
+    {
+      "id": 6,
+      "name": "KIA EV9 2025 - REZ239",
+      "carCategory": {
+        "id": 0,
+        "name": "SUV",
+        "dayRateMultipler": 1.0,
+        "distanceRateMultipler": 0.0,
+        "baseKmPrice": 0,
+        "baseDayRentalPrice": 300
+      },
+      "brand": "KIA",
+      "mileAge": 10000,
+      "model": "EV9",
+      "registrationNumber": "REZ239",
+      "vin": null,
+      "year": 2025
+    },
+    {
+      "id": 7,
+      "name": "Volvo XC90 2025 - BNT610",
+      "carCategory": {
+        "id": 0,
+        "name": "SUV",
+        "dayRateMultipler": 1.0,
+        "distanceRateMultipler": 0.0,
+        "baseKmPrice": 0,
+        "baseDayRentalPrice": 300
+      },
+      "brand": "Volvo",
+      "mileAge": 30000,
+      "model": "XC90",
+      "registrationNumber": "BNT610",
+      "vin": null,
+      "year": 2025
     }
   ],
   "booking": [
-    {
-      "id": 0,
-      "bookingNumber": 10000,
-      "createdOn": "2026-10-06T06:36:11.4369619Z",
-      "startDate": "2026-10-06T06:35:44.9733912Z",
-      "endDate": "2026-10-06T06:35:44.9733913Z",
-      "car": {
-        "id": 0,
-        "name": "Volkswagen Polo 2023 - ABC123",
-        "carCategory": {
-          "id": 0,
-          "name": "SmallCar",
-          "dayRateMultipler": 1.0,
-          "distanceRateMultipler": 0.0,
-          "baseKmPrice": 0,
-          "baseDayRentalPrice": 300
-        },
-        "brand": "Volkswagen",
-        "mileAge": 12500,
-        "model": "Polo",
-        "registrationNumber": "ABC123",
-        "vin": "WVWZZZAWZPU000001",
-        "year": 2023
-      },
-      "customer": {
-        "id": null,
-        "firstName": "Andrew Owen",
-        "lastName": "Sembatya",
-        "socialSecurityNumber": 134386
-      },
-      "rental": {
-        "startMileage": 12500,
-        "endMileage": 12500,
-        "startDate": "2026-10-06T06:35:44.9733912Z",
-        "endDate": "2026-10-08T00:00:00",
-        "price": 300.0,
-        "numberOfDays": 1,
-        "numberOfKilometers": 0
-      },
-      "status": "Complete"
-    }
   ]
 }

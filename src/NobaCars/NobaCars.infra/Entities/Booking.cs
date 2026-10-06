@@ -7,7 +7,7 @@ namespace NobaCars.Infra.Entities
     public class Booking
     {
         public int Id { get; set; }
-        public int BookingNumber { get; set; }
+        public string BookingNumber => String.Format("{0,6:00000}", Id);
         public DateTime CreatedOn { get; set; } = DateTime.Now;
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

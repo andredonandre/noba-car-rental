@@ -13,7 +13,6 @@ namespace NobaCars.Core.Services
     {
         public async Task CreateBooking(CreateBookingModel bookingDetails) {
             var booking = new Booking() {
-                BookingNumber = 10000, 
                 Car = bookingDetails.Car, 
                 Customer = bookingDetails.Customer, 
                 StartDate = bookingDetails.PickUp,
