@@ -22,9 +22,9 @@ namespace NobaCars.Core.Services
                 var categories = db.store.GetCollection<CarCategory>();
                 await categories.InsertOneAsync(carCategory);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                throw e;
+                throw;
             }           
         }
 
