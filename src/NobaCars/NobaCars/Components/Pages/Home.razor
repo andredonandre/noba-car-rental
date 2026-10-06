@@ -161,8 +161,8 @@
                                 }
                             </InputSelect>
                         </td>
-                        <td><InputDate placeholder="Pick-up Time" class="form-control" @bind-Value="bookingModel!.PickUp" /></td>
-                        <td><InputDate placeholder="Drop-Off Time" class="form-control" @bind-Value="bookingModel!.DropOff" /></td>
+                        <td><InputDate Type="InputDateType.DateTimeLocal" placeholder="Pick-up Time" class="form-control" @bind-Value="bookingModel!.PickUp" /></td>
+                        <td><InputDate Type="InputDateType.DateTimeLocal" placeholder="Drop-Off Time" class="form-control" @bind-Value="bookingModel!.DropOff" /></td>
                         <td><button @onclick="AddBooking" class="btn btn-primary">Add</button></td>
                     </tr>
                 </tbody>

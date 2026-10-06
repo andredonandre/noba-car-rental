@@ -11,7 +11,7 @@ namespace NobaCars.Infra.Entities
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public double Price { get; set; } = 0;
-        public int NumberOfDays => RentalPeriod().Days < 0 ? 0 : RentalPeriod().Days;
+        public double NumberOfDays => RentalPeriod().TotalDays < 0 ? 0 : RentalPeriod().TotalDays;
         public int NumberOfKilometers => CalculateDistance();
 
         public Rental(DateTime startDate, int startMileage) {
