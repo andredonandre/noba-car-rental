@@ -8,11 +8,11 @@ namespace NobaCars.Core.Models.Booking
 {
     public class CreateBookingModel
     {
-        public Guid Id { get; } = Guid.NewGuid();
+        public int Id { get; set; }
         public int BookingNumber { get; set; } = 0;
-        public required Customer Customer { get; set; }
-        public required Car Car { get; set; }
-        public required DateTime PickUp { get; set; }
-        public required DateTime DropOff { get; set; }
+        public Customer Customer { get; set; } = new();
+        public Car Car { get; set; } = new();
+        public DateTime PickUp { get; set; } = DateTime.UtcNow;
+        public DateTime DropOff { get; set; } = DateTime.UtcNow;
     }
 }

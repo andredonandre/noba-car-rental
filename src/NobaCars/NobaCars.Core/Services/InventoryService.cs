@@ -17,7 +17,15 @@ namespace NobaCars.Core.Services
 
         public async Task AddCarCategory(CarCategory carCategory)
         {
-            await db.store.InsertItemAsync<CarCategory>(carCategory.Id.ToString(), carCategory);
+            try
+            {
+                var categories = db.store.GetCollection<CarCategory>();
+                await categories.InsertOneAsync(carCategory);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }           
         }
 
         public Car GetCarById(string carId)

@@ -3,145 +3,396 @@
     {
       "id": 0,
       "name": "SmallCar",
-      "rateMultipler": 1.0,
+      "dayRateMultipler": 1.0,
+      "distanceRateMultipler": 1.0,
       "baseKmPrice": 34,
       "baseDayRentalPrice": 33
     },
     {
       "id": 1,
       "name": "Combi",
-      "rateMultipler": 1.3,
+      "dayRateMultipler": 1.0,
+      "distanceRateMultipler": 1.0,
       "baseKmPrice": 34,
       "baseDayRentalPrice": 33
     },
     {
       "id": 2,
       "name": "Truck",
-      "rateMultipler": 1.5,
+      "dayRateMultipler": 1.0,
+      "distanceRateMultipler": 1.0,
       "baseKmPrice": 34,
       "baseDayRentalPrice": 33
     },
     {
       "id": 3,
       "name": "SmallCar",
-      "rateMultipler": 1.0,
+      "dayRateMultipler": 1.0,
+      "distanceRateMultipler": 1.0,
       "baseKmPrice": 34,
       "baseDayRentalPrice": 33
     },
     {
       "id": 4,
-      "name": "Combi",
-      "rateMultipler": 1.3,
-      "baseKmPrice": 34,
-      "baseDayRentalPrice": 33
-    },
-    {
-      "id": 5,
-      "name": "Truck",
-      "rateMultipler": 1.5,
-      "baseKmPrice": 34,
-      "baseDayRentalPrice": 33
+      "name": "SUV",
+      "dayRateMultipler": 1.1,
+      "distanceRateMultipler": 1.0,
+      "baseKmPrice": 5,
+      "baseDayRentalPrice": 19
     }
   ],
   "car": [
     {
+      "id": 0,
+      "name": null,
+      "carCategory": {
+        "id": 0,
+        "name": "SUV",
+        "dayRateMultipler": 1.0,
+        "distanceRateMultipler": 1.0,
+        "baseKmPrice": 34,
+        "baseDayRentalPrice": 33
+      },
+      "brand": "Tesla ",
+      "mileAge": 100,
+      "model": "Model Y",
+      "registrationNumber": "ZBT450",
+      "vin": null,
+      "year": 2025,
+      "nameString": "Tesla  Model Y 2025 - ZBT450"
+    },
+    {
       "id": 1,
       "name": null,
-      "carCategory": null,
+      "carCategory": {
+        "id": 0,
+        "name": "SmallCar",
+        "dayRateMultipler": 1.0,
+        "distanceRateMultipler": 1.0,
+        "baseKmPrice": 34,
+        "baseDayRentalPrice": 33
+      },
       "brand": "Volvo",
-      "mileAge": 0,
-      "model": "V90",
-      "registrationNumber": null,
+      "mileAge": 1450,
+      "model": "ES90",
+      "registrationNumber": "YHG821",
       "vin": null,
-      "year": 2029
+      "year": 2026,
+      "nameString": "Volvo ES90 2026 - YHG821"
+    }
+  ],
+  "booking": [
+    {
+      "id": 0,
+      "bookingNumber": 10000,
+      "createdOn": "2026-10-05T23:25:05.8012856Z",
+      "startDate": "2026-10-08T00:00:00",
+      "endDate": "2026-10-22T00:00:00",
+      "car": {
+        "id": 0,
+        "name": "Tesla  Model Y 2025 - YHG821",
+        "carCategory": {
+          "id": 0,
+          "name": "SUV",
+          "dayRateMultipler": 1.0,
+          "distanceRateMultipler": 1.0,
+          "baseKmPrice": 34,
+          "baseDayRentalPrice": 33
+        },
+        "brand": "Tesla ",
+        "mileAge": 100,
+        "model": "Model Y",
+        "registrationNumber": "YHG821",
+        "vin": null,
+        "year": 2025
+      },
+      "customer": {
+        "id": null,
+        "firstName": "Zlatan ",
+        "lastName": "Ibrahimovic",
+        "socialSecurityNumber": 0
+      },
+      "rental": {
+        "startMileage": 100,
+        "endMileage": 0,
+        "startDate": "2026-10-08T00:00:00",
+        "endDate": "2026-10-06T00:24:56.7409709Z",
+        "price": -33.0,
+        "numberOfDays": 0,
+        "numberOfKilometers": 0
+      },
+      "status": "Complete"
+    },
+    {
+      "id": 1,
+      "bookingNumber": 10000,
+      "createdOn": "2026-10-05T23:30:05.6923638Z",
+      "startDate": "2026-10-05T23:29:39.4322383Z",
+      "endDate": "2026-10-07T00:00:00",
+      "car": {
+        "id": 0,
+        "name": "Tesla  Model Y 2025 - ZBT450",
+        "carCategory": {
+          "id": 0,
+          "name": "SUV",
+          "dayRateMultipler": 1.0,
+          "distanceRateMultipler": 1.0,
+          "baseKmPrice": 34,
+          "baseDayRentalPrice": 33
+        },
+        "brand": "Tesla ",
+        "mileAge": 100,
+        "model": "Model Y",
+        "registrationNumber": "ZBT450",
+        "vin": null,
+        "year": 2025
+      },
+      "customer": {
+        "id": null,
+        "firstName": "Jim ",
+        "lastName": "Carrey",
+        "socialSecurityNumber": 0
+      },
+      "rental": {
+        "startMileage": 100,
+        "endMileage": 0,
+        "startDate": "2026-10-05T23:29:39.4322383Z",
+        "endDate": "2026-10-06T00:25:43.3284425Z",
+        "price": 0.0,
+        "numberOfDays": 0,
+        "numberOfKilometers": 0
+      },
+      "status": "Complete"
     },
     {
       "id": 2,
-      "name": null,
-      "carCategory": null,
-      "brand": "Toyota",
-      "mileAge": 0,
-      "model": "Emina",
-      "registrationNumber": null,
-      "vin": null,
-      "year": 2011
+      "bookingNumber": 10000,
+      "createdOn": "2026-10-06T00:29:32.105378Z",
+      "startDate": "2026-10-06T00:24:46.9443694Z",
+      "endDate": "2026-10-08T00:00:00",
+      "car": {
+        "id": 0,
+        "name": "Tesla  Model Y 2025 - ZBT450",
+        "carCategory": {
+          "id": 0,
+          "name": "SUV",
+          "dayRateMultipler": 1.0,
+          "distanceRateMultipler": 1.0,
+          "baseKmPrice": 34,
+          "baseDayRentalPrice": 33
+        },
+        "brand": "Tesla ",
+        "mileAge": 100,
+        "model": "Model Y",
+        "registrationNumber": "ZBT450",
+        "vin": null,
+        "year": 2025
+      },
+      "customer": {
+        "id": null,
+        "firstName": "Jimmy",
+        "lastName": "Naves",
+        "socialSecurityNumber": 18983674
+      },
+      "rental": {
+        "startMileage": 100,
+        "endMileage": 0,
+        "startDate": "2026-10-06T00:24:46.9443694Z",
+        "endDate": "2026-10-06T00:30:08.1522727Z",
+        "price": 0.0,
+        "numberOfDays": 0,
+        "numberOfKilometers": 0
+      },
+      "status": "Complete"
     },
     {
       "id": 3,
-      "name": null,
-      "carCategory": null,
-      "brand": "Volvo",
-      "mileAge": 0,
-      "model": "V90",
-      "registrationNumber": null,
-      "vin": null,
-      "year": 2029
+      "bookingNumber": 10000,
+      "createdOn": "2026-10-06T00:44:02.0638091Z",
+      "startDate": "2026-09-30T00:00:00",
+      "endDate": "2026-10-16T00:00:00",
+      "car": {
+        "id": 0,
+        "name": "Tesla  Model Y 2025 - ZBT450",
+        "carCategory": {
+          "id": 0,
+          "name": "SUV",
+          "dayRateMultipler": 1.0,
+          "distanceRateMultipler": 1.0,
+          "baseKmPrice": 34,
+          "baseDayRentalPrice": 33
+        },
+        "brand": "Tesla ",
+        "mileAge": 100,
+        "model": "Model Y",
+        "registrationNumber": "ZBT450",
+        "vin": null,
+        "year": 2025
+      },
+      "customer": {
+        "id": null,
+        "firstName": "Denzel",
+        "lastName": "Currey",
+        "socialSecurityNumber": 20000
+      },
+      "rental": {
+        "startMileage": 100,
+        "endMileage": 1000,
+        "startDate": "2026-09-23T00:00:00",
+        "endDate": "2026-10-17T00:00:00",
+        "price": 31392.0,
+        "numberOfDays": 24,
+        "numberOfKilometers": 900
+      },
+      "status": "Complete"
     },
     {
       "id": 4,
-      "name": null,
-      "carCategory": null,
-      "brand": "Volvo",
-      "mileAge": 0,
-      "model": "V90",
-      "registrationNumber": null,
-      "vin": null,
-      "year": 2029
+      "bookingNumber": 10000,
+      "createdOn": "2026-10-06T05:20:11.1892556Z",
+      "startDate": "2026-10-06T05:14:13.3693855Z",
+      "endDate": "2026-10-06T05:14:13.3693861Z",
+      "car": {
+        "id": 0,
+        "name": "Tesla  Model Y 2025 - ZBT450",
+        "carCategory": {
+          "id": 0,
+          "name": "SUV",
+          "dayRateMultipler": 1.0,
+          "distanceRateMultipler": 1.0,
+          "baseKmPrice": 34,
+          "baseDayRentalPrice": 33
+        },
+        "brand": "Tesla ",
+        "mileAge": 100,
+        "model": "Model Y",
+        "registrationNumber": "ZBT450",
+        "vin": null,
+        "year": 2025
+      },
+      "customer": {
+        "id": null,
+        "firstName": null,
+        "lastName": null,
+        "socialSecurityNumber": 0
+      },
+      "rental": {
+        "startMileage": 100,
+        "endMileage": 0,
+        "startDate": "2026-10-06T05:14:13.3693855Z",
+        "endDate": null,
+        "price": 0.0,
+        "numberOfDays": 0,
+        "numberOfKilometers": 0
+      },
+      "status": "Ongoing"
     },
     {
       "id": 5,
-      "name": null,
-      "carCategory": null,
-      "brand": "Volvo",
-      "mileAge": 0,
-      "model": "V90",
-      "registrationNumber": null,
-      "vin": null,
-      "year": 2029
+      "bookingNumber": 10000,
+      "createdOn": "2026-10-06T05:39:31.1689885Z",
+      "startDate": "2026-10-06T05:33:17.1662739Z",
+      "endDate": "2026-10-21T00:00:00",
+      "car": {
+        "id": 0,
+        "name": "Tesla  Model Y 2025 - ZBT450",
+        "carCategory": {
+          "id": 0,
+          "name": "SUV",
+          "dayRateMultipler": 1.0,
+          "distanceRateMultipler": 1.0,
+          "baseKmPrice": 34,
+          "baseDayRentalPrice": 33
+        },
+        "brand": "Tesla ",
+        "mileAge": 100,
+        "model": "Model Y",
+        "registrationNumber": "ZBT450",
+        "vin": null,
+        "year": 2025
+      },
+      "customer": {
+        "id": null,
+        "firstName": "Bruce",
+        "lastName": "Lee",
+        "socialSecurityNumber": 172989730
+      },
+      "rental": {
+        "startMileage": 100,
+        "endMileage": 1000,
+        "startDate": "2026-10-07T00:00:00",
+        "endDate": "2026-10-23T00:00:00",
+        "price": 31128.0,
+        "numberOfDays": 16,
+        "numberOfKilometers": 900
+      },
+      "status": "Complete"
     },
     {
       "id": 6,
-      "name": null,
-      "carCategory": null,
-      "brand": null,
-      "mileAge": 0,
-      "model": null,
-      "registrationNumber": null,
-      "vin": null,
-      "year": 0
+      "bookingNumber": 10000,
+      "createdOn": "2026-10-06T05:44:38.0567939Z",
+      "startDate": "2026-10-06T05:43:37.7365343Z",
+      "endDate": "2026-10-08T00:00:00",
+      "car": {
+        "id": 0,
+        "name": "Tesla  Model Y 2025 - YHG821",
+        "carCategory": {
+          "id": 0,
+          "name": "SUV",
+          "dayRateMultipler": 1.0,
+          "distanceRateMultipler": 1.0,
+          "baseKmPrice": 34,
+          "baseDayRentalPrice": 33
+        },
+        "brand": "Tesla ",
+        "mileAge": 100,
+        "model": "Model Y",
+        "registrationNumber": "YHG821",
+        "vin": null,
+        "year": 2025
+      },
+      "customer": {
+        "id": null,
+        "firstName": "Francois",
+        "lastName": "Stein",
+        "socialSecurityNumber": 4000
+      },
+      "rental": null,
+      "status": "Booked"
     },
     {
       "id": 7,
-      "name": null,
-      "carCategory": null,
-      "brand": null,
-      "mileAge": 0,
-      "model": null,
-      "registrationNumber": null,
-      "vin": null,
-      "year": 0
-    },
-    {
-      "id": 8,
-      "name": null,
-      "carCategory": null,
-      "brand": null,
-      "mileAge": 0,
-      "model": null,
-      "registrationNumber": null,
-      "vin": null,
-      "year": 0
-    },
-    {
-      "id": 9,
-      "name": null,
-      "carCategory": null,
-      "brand": null,
-      "mileAge": 0,
-      "model": null,
-      "registrationNumber": null,
-      "vin": null,
-      "year": 0
+      "bookingNumber": 10000,
+      "createdOn": "2026-10-06T05:58:56.8126994Z",
+      "startDate": "2026-10-06T05:58:20.8233655Z",
+      "endDate": "2026-10-06T05:58:20.8233659Z",
+      "car": {
+        "id": 0,
+        "name": "Tesla  Model Y 2025 - ZBT450",
+        "carCategory": {
+          "id": 0,
+          "name": "SUV",
+          "dayRateMultipler": 1.0,
+          "distanceRateMultipler": 1.0,
+          "baseKmPrice": 34,
+          "baseDayRentalPrice": 33
+        },
+        "brand": "Tesla ",
+        "mileAge": 100,
+        "model": "Model Y",
+        "registrationNumber": "ZBT450",
+        "vin": null,
+        "year": 2025
+      },
+      "customer": {
+        "id": null,
+        "firstName": "Royce",
+        "lastName": "Jeremy",
+        "socialSecurityNumber": 0
+      },
+      "rental": null,
+      "status": "Booked"
     }
   ]
 }

@@ -8,6 +8,6 @@ namespace NobaCars.Core.Interfaces
         IEnumerable<Booking> GetBookings();
         Task CreateBooking(CreateBookingModel booking);
         Task RegisterPickup(int BookingId, DateTime pickupTime);
-        Task RegisterDropOff(int BookingId, int endMileage);
+        Task RegisterDropOff(int BookingId, DateTime dropoffTime, int endMileage);
     }
 }

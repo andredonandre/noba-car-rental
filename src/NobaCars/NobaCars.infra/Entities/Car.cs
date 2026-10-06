@@ -7,8 +7,8 @@ namespace NobaCars.Infra.Entities
     public class Car
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-        public CarCategory CarCategory { get; set; }
+        public string Name => $"{Brand} {Model} {Year} - {RegistrationNumber}";
+        public CarCategory CarCategory { get; set; } = new();
         public string Brand { get; set; }
         public int MileAge { get; set; }
         public string Model { get; set; }

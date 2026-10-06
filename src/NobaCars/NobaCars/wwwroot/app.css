@@ -1,5 +1,5 @@
 html, body {
-    font-family: 'Geist', sans-serif;
+    font-family: 'Geist', sans-serif !important;
 }
 
 .geist-regular {
