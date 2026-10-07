@@ -9,7 +9,7 @@ namespace NobaCars.Infra
     {
         // Registers the JSON flat-file implementation of the Core repository interfaces.
         // A different storage provider only needs its own extension method like this one.
-        public static IServiceCollection AddJsonFileStorage(this IServiceCollection services, string filePath = "database.json")
+        public static IServiceCollection AddDataStore(this IServiceCollection services, string filePath = "database.json")
         {
             services.AddSingleton(_ => new Database(filePath));
             services.AddSingleton<IBookingRepository, JsonBookingRepository>();

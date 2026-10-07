@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddJsonFileStorage("database.json");
+builder.Services.AddDataStore("database.json");
 builder.Services.AddSingleton<IBookingService, BookingService>();
 builder.Services.AddSingleton<IInventoryService, InventoryService>();
 
