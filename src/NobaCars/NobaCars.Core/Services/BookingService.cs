@@ -18,7 +18,6 @@ namespace NobaCars.Core.Services
                 StartDate = bookingDetails.PickUp,
                 EndDate = bookingDetails.DropOff,
                 CreatedOn = DateTime.UtcNow};
-            booking?.Rental?.StartDate = booking.StartDate;
             await bookings.AddAsync(booking);
         }
         public IEnumerable<Booking> GetBookings(){
