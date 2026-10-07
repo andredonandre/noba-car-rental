@@ -179,6 +179,47 @@
       "year": 2025
     }
   ],
-  "booking": [  
+  "booking": [
+    {
+      "id": 1,
+      "bookingNumber": " 00001",
+      "createdOn": "2026-10-06T19:58:54.7411515Z",
+      "startDate": "2026-10-06T19:58:19.5764627Z",
+      "endDate": "2026-10-08T10:58:00",
+      "car": {
+        "id": 1,
+        "name": "Volvo V60 2022 - DEF456",
+        "carCategory": {
+          "id": 1,
+          "name": "Combi",
+          "dayRateMultipler": 1.3,
+          "distanceRateMultipler": 1.0,
+          "baseKmPrice": 2,
+          "baseDayRentalPrice": 400
+        },
+        "brand": "Volvo",
+        "mileAge": 34200,
+        "model": "V60",
+        "registrationNumber": "DEF456",
+        "vin": "YV1ZW25V0N1000002",
+        "year": 2022
+      },
+      "customer": {
+        "id": null,
+        "firstName": "Jeremy ",
+        "lastName": "Linn",
+        "socialSecurityNumber": 198827864
+      },
+      "rental": {
+        "startMileage": 34200,
+        "endMileage": 34200,
+        "startDate": "2026-10-06T19:58:19.5764627Z",
+        "endDate": "2026-10-08T11:58:00",
+        "price": 866.55,
+        "numberOfDays": 1.6664400872372684,
+        "numberOfKilometers": 0
+      },
+      "status": "Complete"
+    }
   ]
 }

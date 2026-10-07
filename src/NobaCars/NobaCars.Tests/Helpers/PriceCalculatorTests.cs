@@ -1,5 +1,5 @@
 using NobaCars.Core.Helpers;
-using NobaCars.Infra.Entities;
+using NobaCars.Core.Entities;
 using Xunit;
 
 namespace NobaCars.Tests.Helpers
@@ -195,39 +195,61 @@ namespace NobaCars.Tests.Helpers
         #region Rental period edge cases
 
         [Fact]
-        public void GivenRentalReturnedSameDay_WhenCalculatingPrice_ThenNoDaysAreCharged()
+        public void GivenRentalReturnedSameDay_WhenCalculatingPrice_ThenFractionOfADayIsCharged()
         {
             // Given
             var category = Combi(baseDayRental: 500, baseKmPrice: 2);
             var rental = new Rental(PickupDate, StartMileage)
             {
-                EndDate = PickupDate.AddHours(5),
+                EndDate = PickupDate.AddHours(6),
                 EndMileage = StartMileage + 40
             };
 
             // When
             var price = PriceCalculator.CalculatePrice(rental, category);
 
-            // Then  only the distance is charged: 2 * 40
-            Assert.Equal(80, price, Precision);
+            // Then  (500 * 0.25 * 1.3) + (2 * 40)
+            Assert.Equal(242.5, price, Precision);
         }
 
         [Fact]
-        public void GivenRentalWithPartialDay_WhenCalculatingPrice_ThenOnlyCompletedDaysAreCharged()
+        public void GivenRentalWithPartialDay_WhenCalculatingPrice_ThenPartialDayIsChargedAsAFraction()
         {
             // Given
             var category = SmallCar(baseDayRental: 500, baseKmPrice: 2);
             var rental = new Rental(PickupDate, StartMileage)
             {
-                EndDate = PickupDate.AddDays(2).AddHours(23).AddMinutes(59),
+                EndDate = PickupDate.AddDays(2).AddHours(12),
                 EndMileage = StartMileage
             };
 
             // When
             var price = PriceCalculator.CalculatePrice(rental, category);
 
+            // Then  500 * 2.5
+            Assert.Equal(1250, price, Precision);
+        }
+
+        [Theory]
+        [InlineData(100, 0, 1, 0, 4.17)]     // SmallCar: 100 * 1/24 = 4.1666...
+        [InlineData(500, 2, 5, 40, 215.42)]  // Combi: 500 * 5/24 * 1.3 + 2 * 40 = 215.4166...
+        [InlineData(300, 0, 20, 0, 250)]     // SmallCar: 300 * 20/24 = 250, an exact result stays exact
+        public void GivenPriceWithMoreThanTwoDecimals_WhenCalculatingPrice_ThenPriceIsRoundedToTwoDecimals(
+            int baseDayRental, int baseKmPrice, int hours, int kilometers, double expected)
+        {
+            // Given
+            var category = baseKmPrice == 0 ? SmallCar(baseDayRental, baseKmPrice) : Combi(baseDayRental, baseKmPrice);
+            var rental = new Rental(PickupDate, StartMileage)
+            {
+                EndDate = PickupDate.AddHours(hours),
+                EndMileage = StartMileage + kilometers
+            };
+
+            // When
+            var price = PriceCalculator.CalculatePrice(rental, category);
+
             // Then
-            Assert.Equal(1000, price, Precision);
+            Assert.Equal(expected, price);
         }
 
         [Fact]

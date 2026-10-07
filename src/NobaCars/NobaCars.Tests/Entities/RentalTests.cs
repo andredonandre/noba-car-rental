@@ -1,4 +1,4 @@
-using NobaCars.Infra.Entities;
+using NobaCars.Core.Entities;
 using Xunit;
 
 namespace NobaCars.Tests.Entities
@@ -7,6 +7,7 @@ namespace NobaCars.Tests.Entities
     {
         private static readonly DateTime PickupDate = new(2026, 1, 1, 10, 0, 0);
         private const int StartMileage = 10_000;
+        private const int Precision = 10;
 
         #region Constructor
 
@@ -79,17 +80,21 @@ namespace NobaCars.Tests.Entities
             Assert.Equal(0, numberOfDays);
         }
 
-        [Fact]
-        public void GivenRentalReturnedWithinTheSameDay_WhenGettingNumberOfDays_ThenZeroIsReturned()
+        [Theory]
+        [InlineData(1, 1.0 / 24)]
+        [InlineData(6, 0.25)]
+        [InlineData(12, 0.5)]
+        [InlineData(18, 0.75)]
+        public void GivenRentalReturnedWithinTheSameDay_WhenGettingNumberOfDays_ThenFractionOfADayIsReturned(int hours, double expected)
         {
             // Given
-            var rental = new Rental(PickupDate, StartMileage) { EndDate = PickupDate.AddHours(23).AddMinutes(59) };
+            var rental = new Rental(PickupDate, StartMileage) { EndDate = PickupDate.AddHours(hours) };
 
             // When
             var numberOfDays = rental.NumberOfDays;
 
             // Then
-            Assert.Equal(0, numberOfDays);
+            Assert.Equal(expected, numberOfDays, Precision);
         }
 
         [Fact]
@@ -106,20 +111,33 @@ namespace NobaCars.Tests.Entities
         }
 
         [Fact]
-        public void GivenRentalWithPartialDay_WhenGettingNumberOfDays_ThenOnlyCompletedDaysAreCounted()
+        public void GivenRentalWithPartialDay_WhenGettingNumberOfDays_ThenPartialDayIsCountedAsAFraction()
         {
             // Given
-            var rental = new Rental(PickupDate, StartMileage) { EndDate = PickupDate.AddDays(2).AddHours(23).AddMinutes(59) };
+            var rental = new Rental(PickupDate, StartMileage) { EndDate = PickupDate.AddDays(2).AddHours(12) };
 
             // When
             var numberOfDays = rental.NumberOfDays;
 
             // Then
-            Assert.Equal(2, numberOfDays);
+            Assert.Equal(2.5, numberOfDays, Precision);
         }
 
         [Fact]
-        public void GivenRentalReturnedOnLaterCalendarDayButBeforePickupTime_WhenGettingNumberOfDays_ThenElapsedDaysAreCounted()
+        public void GivenRentalReturnedOneMinuteBeforeFullDay_WhenGettingNumberOfDays_ThenDaysAreNotRoundedUp()
+        {
+            // Given
+            var rental = new Rental(PickupDate, StartMileage) { EndDate = PickupDate.AddDays(1).AddMinutes(-1) };
+
+            // When
+            var numberOfDays = rental.NumberOfDays;
+
+            // Then  1439 of 1440 minutes
+            Assert.Equal(1439.0 / 1440, numberOfDays, Precision);
+        }
+
+        [Fact]
+        public void GivenRentalReturnedOnLaterCalendarDayButBeforePickupTime_WhenGettingNumberOfDays_ThenElapsedTimeIsCounted()
         {
             // Given  picked up 10:00, returned 08:00 two calendar days later (46 hours)
             var rental = new Rental(PickupDate, StartMileage) { EndDate = PickupDate.Date.AddDays(2).AddHours(8) };
@@ -128,7 +146,7 @@ namespace NobaCars.Tests.Entities
             var numberOfDays = rental.NumberOfDays;
 
             // Then
-            Assert.Equal(1, numberOfDays);
+            Assert.Equal(46.0 / 24, numberOfDays, Precision);
         }
 
         [Fact]

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NobaCars.Infra.Entities
+namespace NobaCars.Core.Entities
 {
     public class Booking
     {

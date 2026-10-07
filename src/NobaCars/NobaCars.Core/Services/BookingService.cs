@@ -1,48 +1,47 @@
-﻿using NobaCars.Core.Helpers;
+using NobaCars.Core.Helpers;
 using NobaCars.Core.Interfaces;
+using NobaCars.Core.Interfaces.Repositories;
 using NobaCars.Core.Models.Booking;
-using NobaCars.Infra;
-using NobaCars.Infra.Entities;
+using NobaCars.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace NobaCars.Core.Services
 {
-    public class BookingService(Database db) : IBookingService
+    public class BookingService(IBookingRepository bookings) : IBookingService
     {
         public async Task CreateBooking(CreateBookingModel bookingDetails) {
             var booking = new Booking() {
-                Car = bookingDetails.Car, 
-                Customer = bookingDetails.Customer, 
+                Car = bookingDetails.Car,
+                Customer = bookingDetails.Customer,
                 StartDate = bookingDetails.PickUp,
                 EndDate = bookingDetails.DropOff,
                 CreatedOn = DateTime.UtcNow};
             booking?.Rental?.StartDate = booking.StartDate;
-            var bookings = db.store.GetCollection<Booking>();
-            await bookings.InsertOneAsync(booking);
+            await bookings.AddAsync(booking);
         }
         public IEnumerable<Booking> GetBookings(){
-            var collection = db.store.GetCollection<Booking>().AsQueryable();
-            return collection;
+            return bookings.GetAll();
         }
 
         public async Task RegisterDropOff(int BookingId, DateTime dropOffTime, int endMileage)
         {
-            var bookings = db.store.GetCollection<Booking>();
-            var booking = bookings.AsQueryable().Where(b => b.Id  == BookingId).First();
+            var booking = GetBooking(BookingId);
             booking?.Rental?.EndMileage = endMileage;
             booking?.Rental?.EndDate = dropOffTime;
             booking?.Rental?.Price = PriceCalculator.CalculatePrice(booking.Rental, booking.Car.CarCategory);
-            await bookings.UpdateOneAsync(BookingId, booking);
+            await bookings.UpdateAsync(booking);
         }
 
         public async Task RegisterPickup(int BookingId, DateTime pickUpTime)
         {
-            var bookings = db.store.GetCollection<Booking>();
-            var booking = bookings.AsQueryable().Where(b => b.Id == BookingId).First();
+            var booking = GetBooking(BookingId);
             booking.Rental = new Rental(pickUpTime, booking.Car.MileAge);
-            await bookings.UpdateOneAsync(BookingId, booking);
+            await bookings.UpdateAsync(booking);
         }
+
+        private Booking GetBooking(int bookingId) =>
+            bookings.GetById(bookingId) ?? throw new InvalidOperationException($"Booking {bookingId} was not found.");
     }
 }

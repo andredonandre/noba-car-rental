@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace NobaCars.Infra
+namespace NobaCars.Core.Entities
 {
     public static class RentalStatus
     {

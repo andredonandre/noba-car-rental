@@ -1,4 +1,4 @@
-﻿using NobaCars.Infra.Entities;
+﻿using NobaCars.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +9,7 @@ namespace NobaCars.Core.Interfaces
     {
         Task AddACar(Car car);
         Task AddCarCategory(CarCategory carCategory);
-        Car GetCarById(string carId);
+        Car? GetCarById(int carId);
         IEnumerable<Car> GetCars();
         IEnumerable<CarCategory> GetCarCategories();
     }

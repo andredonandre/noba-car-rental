@@ -1,7 +1,6 @@
 ﻿@page "/"
 @rendermode InteractiveServer
-@using NobaCars.Infra.Entities
-@using NobaCars.Infra
+@using NobaCars.Core.Entities
 @using NobaCars.Core.Interfaces
 @using NobaCars.Core.Models.Booking
 @inject IInventoryService InventoryService
@@ -58,21 +57,21 @@
                             <td>
                                 @if (booking?.Rental?.StartDate != null)
                                 {
-                                    @booking?.Rental?.StartDate?.ToShortDateString()
+                                    @booking?.Rental?.StartDate?.ToString("g")
                                 }
                                 else
                                 {
-                                    @booking?.StartDate.ToShortDateString()
+                                    @booking?.StartDate.ToString("g")
                                 }
                             </td>
                             <td>
                                 @if (booking?.Rental?.EndDate != null)
                                 {
-                                    @booking?.Rental?.EndDate?.ToShortDateString()
+                                    @booking?.Rental?.EndDate?.ToString("g")
                                 }
                                 else
                                 {
-                                    @booking?.EndDate.ToShortDateString()
+                                    @booking?.EndDate.ToString("g")
                                 }
                             </td>
                             <td>
@@ -106,7 +105,7 @@
                                             <form @onsubmit="() => RegisterPickup(booking.Id, booking.StartDate)">
                                                 <div class="dropdown-item d-flex align-items-center">
                                                     <div class="text-lg">
-                                                        <input class="form-control" @bind-value="@booking.StartDate" type="date" id="pickupTime" name="pickupTime" aria-label="...">
+                                                        <input class="form-control" @bind-value="@booking.StartDate" type="datetime-local" id="pickupTime" name="pickupTime" aria-label="...">
                                                     </div>
                                                 </div>
                                                 <div class="dropdown-item">
@@ -126,7 +125,7 @@
                                             <form @onsubmit="() => RegisterDropoff(booking.Id, booking.EndDate, booking.Car.MileAge)">
                                                 <div class="dropdown-item d-flex align-items-center">
                                                     <div class="text-lg">
-                                                        <input class="form-control" @bind-value="@booking.EndDate" type="date" id="dropOffTime" name="dropOffTime" aria-label="...">
+                                                        <input class="form-control" @bind-value="@booking.EndDate" type="datetime-local" id="dropOffTime" name="dropOffTime" aria-label="...">
                                                     </div>
                                                 </div>
                                                 <div class="dropdown-item d-flex align-items-center">

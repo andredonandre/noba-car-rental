@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddSingleton<Database>();
+builder.Services.AddJsonFileStorage("database.json");
 builder.Services.AddSingleton<IBookingService, BookingService>();
 builder.Services.AddSingleton<IInventoryService, InventoryService>();
 
@@ -23,6 +23,8 @@ builder.Services.AddBlazorBlueprintComponents();
 builder.Services.AddBlazorBlueprintPrimitives();
 
 var app = builder.Build();
+
+await app.Services.SeedDataAsync();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())

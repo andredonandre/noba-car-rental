@@ -1,5 +1,5 @@
 ﻿using NobaCars.Core.Models.Booking;
-using NobaCars.Infra.Entities;
+using NobaCars.Core.Entities;
 
 namespace NobaCars.Core.Interfaces
 {

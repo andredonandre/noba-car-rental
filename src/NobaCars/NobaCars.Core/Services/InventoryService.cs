@@ -1,49 +1,44 @@
-﻿using NobaCars.Core.Interfaces;
-using NobaCars.Infra;
-using NobaCars.Infra.Entities;
+using NobaCars.Core.Interfaces;
+using NobaCars.Core.Interfaces.Repositories;
+using NobaCars.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace NobaCars.Core.Services
 {
-    public class InventoryService(Database db) : IInventoryService
+    public class InventoryService(ICarRepository cars, ICarCategoryRepository categories) : IInventoryService
     {
         public async Task AddACar(Car car)
-        {            
-            var cars = db.store.GetCollection<Car>();
-            await cars.InsertOneAsync(car);
+        {
+            await cars.AddAsync(car);
         }
 
         public async Task AddCarCategory(CarCategory carCategory)
         {
             try
             {
-                var categories = db.store.GetCollection<CarCategory>();
-                await categories.InsertOneAsync(carCategory);
+                await categories.AddAsync(carCategory);
             }
             catch (Exception)
             {
                 throw;
-            }           
+            }
         }
 
-        public Car GetCarById(string carId)
+        public Car? GetCarById(int carId)
         {
-            var item = db.store.GetItem<Car>(carId);
-            return item;
+            return cars.GetById(carId);
         }
 
         public IEnumerable<CarCategory> GetCarCategories()
         {
-            var collection = db.store.GetCollection<CarCategory>().AsQueryable();
-            return collection;
+            return categories.GetAll();
         }
 
         public IEnumerable<Car> GetCars()
         {
-            var collection = db.store.GetCollection<Car>().AsQueryable();
-            return collection;
+            return cars.GetAll();
         }
     }
 }

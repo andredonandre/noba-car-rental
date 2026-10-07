@@ -1,4 +1,4 @@
-﻿using NobaCars.Infra.Entities;
+﻿using NobaCars.Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
